@@ -8,7 +8,7 @@ You will need an **API key** text file in the root path of your cloned repositor
 ### Run the code
 The whole data stream is wrapped in `mindat_data_processor.py`. You can walk through all the steps from data retrieving to data export by run this single `.py` file.
 
-
+## File structures
 
 ### Data Description
 The retrieved data are saved in `./mindat_data/raw_data`, in the name format of `mindat_items_IMA_00000000000000.json`.
