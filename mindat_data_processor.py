@@ -7,6 +7,7 @@ import pandas as pd
 import sys
 from csv_normalizer import CsvNormalizer
 from mindat_api import MindatApi
+import copy
 
 class MindatDataProcessor:
     ALL_ELEMENT_LIST = ['H', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Na', 'Mg', 'Al', 'Si', 'P', 'S',\
@@ -35,7 +36,7 @@ class MindatDataProcessor:
         # get_normalized_csv()
 
         # Or you can run all the steps at once.
-        self.run_data_preprocess()
+        # self.run_data_preprocess()
 
     def run_data_preprocess(self):
         self.update_mindat_data()
@@ -165,37 +166,29 @@ class MindatDataProcessor:
 
 
     def get_item_element_attributes(self, item, ELEMENT_KEY):
-        sig_elements = item[ELEMENT_KEY].split("-")
-        #sig_elements = item["elements"].split("-")
-        # remove sig_elements that are not in element_list
-        sig_elements = [e for e in sig_elements if e in self.all_element_list]
-        # sort sig_elements by element_list
-        sig_elements = sorted(sig_elements, key=lambda x: self.all_element_list.index(x))
-        return sig_elements
+        ele_attr_list = item[ELEMENT_KEY].split("-")
+        ele_attr_list = [e for e in ele_attr_list if e in self.all_element_list]
+        ele_attr_list = sorted(ele_attr_list, key=lambda x: self.all_element_list.index(x))
+        return ele_attr_list
 
 
     def get_element_pair(self, JSONDATA, ELEMENT_I, ELEMENT_J):
-        if ELEMENT_I in JSONDATA['with'].keys():
-            if ELEMENT_J in JSONDATA['with'][ELEMENT_I].keys():
-                return JSONDATA['with'][ELEMENT_I][ELEMENT_J]
-            else:
-                return 0
-        else:
+        if ELEMENT_I not in JSONDATA['with'].keys():
             return 0
+        if ELEMENT_J not in JSONDATA['with'][ELEMENT_I].keys():
+            return 0
+        return JSONDATA['with'][ELEMENT_I][ELEMENT_J]
 
 
-    def make_flip(self, DATAFRAME):
-        data_frame = DATAFRAME
-        for i in range(len(DATAFRAME.columns)):
-            for j in range(len(DATAFRAME.index)):
+    def make_flip(self, dataframe):
+        for i in range(len(dataframe.columns)):
+            for j in range(len(dataframe.index)):
                 if i > j:
-                   data_frame.iloc[i, j] = data_frame.iloc[j, i]
-        
-        return data_frame
+                   dataframe.iloc[i, j] = dataframe.iloc[j, i]
         
 
-    def insert_yaxis(self, DATAFRAME):
-        element_count = len(DATAFRAME.columns)
+    def insert_yaxis(self, dataframe):
+        element_count = len(dataframe.columns)
         if (72 == element_count):
             target_element_list = self.all_element_list
         elif (30 == element_count):
@@ -204,16 +197,13 @@ class MindatDataProcessor:
             print("ELEMENT_COUNT error")
             sys.exit()
 
-        DATAFRAME.insert(0, "yaxis", target_element_list, True)
-
-        return DATAFRAME
+        dataframe.insert(0, "yaxis", target_element_list, True)
 
 
-    def insert_zaxis(self, DATAFRAME):
-        element_count = len(DATAFRAME.index)
+    def insert_zaxis(self, dataframe):
+        element_count = len(dataframe.index)
         zaxis = np.full(element_count, self.current_element, dtype=object)
-        DATAFRAME.insert(0, "zaxis", zaxis, True)
-        return DATAFRAME
+        dataframe.insert(0, "zaxis", zaxis, True)
 
 
     def convert_json_to_df(self, ELEMENT_NAME, JSON_PATH):
@@ -273,5 +263,6 @@ class MindatDataProcessor:
 if __name__ == "__main__":
    
     mdp = MindatDataProcessor()
+    mdp.run_data_preprocess()
     # mdp.prepare_data()
     # mdp.export_csv()

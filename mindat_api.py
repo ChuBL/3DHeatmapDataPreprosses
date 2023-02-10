@@ -175,7 +175,7 @@ class MindatApi:
                     json_all['results'] += json_file['results']
 
             json.dump(json_all, f, indent=4)
-            print("Successfully saved " + str(len(json_all['results'])) + " entries to" + ima_path + 'mindat_items_IMA_' + date + '.json')
+            print("Successfully saved " + str(len(json_all['results'])) + " entries to " + ima_path + 'mindat_items_IMA_' + date + '.json')
 
     def download_localities(self):
         pass
