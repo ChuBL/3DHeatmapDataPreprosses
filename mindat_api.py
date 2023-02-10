@@ -148,11 +148,12 @@ class MindatApi:
         omit_str = '''updttime,varietyof,synid,polytypeof,groupid,
             entrytype,entrytype_text,description_short,impurities
             '''
-        ima_path = self.data_dir
-        Path(ima_path).mkdir(parents=True, exist_ok=True)
+        ima_path = Path(self.data_dir, 'raw_data')
+        ima_path.mkdir(parents=True, exist_ok=True)
         date = self.get_datetime()
         print("Retriving Mindat data for IMA approved minerals. This may take a while... ")
-        with open(ima_path + 'mindat_items_IMA_' + date + '.json', 'w') as f:
+        file_path = Path(ima_path, 'mindat_items_IMA_' + date + '.json')
+        with open(file_path, 'w') as f:
             PAGE_RANGE = 7
             for page in range(1, PAGE_RANGE):
                 params = {
@@ -175,7 +176,7 @@ class MindatApi:
                     json_all['results'] += json_file['results']
 
             json.dump(json_all, f, indent=4)
-            print("Successfully saved " + str(len(json_all['results'])) + " entries to " + ima_path + 'mindat_items_IMA_' + date + '.json')
+            print("Successfully saved " + str(len(json_all['results'])) + " entries to " + str(file_path) + '.json')
 
     def download_localities(self):
         pass

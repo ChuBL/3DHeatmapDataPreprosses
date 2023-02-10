@@ -8,15 +8,17 @@ You will need an **API key** text file in the root path of your cloned repositor
 ### Run the code
 The whole data stream is wrapped in `mindat_data_processor.py`. You can walk through all the steps from data retrieving to data export by run this single `.py` file.
 
-### Auxiliary code
 
-#### `mindat_api.py`
-Retrieving data from mindat api.
-
-#### `csv_normalizer.py`
-Generate normalized version of cleaned CSV file.
 
 ### Data Description
-The retrieved data are saved in `./mindat_data/`, in the name format of `mindat_items_IMA_00000000000000.json`.
+The retrieved data are saved in `./mindat_data/raw_data`, in the name format of `mindat_items_IMA_00000000000000.json`.
 
 The exported CSV files are saved in `./mindat_data/csv/`
+
+### Auxiliary code
+
+#### Data retrieving
+`mindat_api.py` for retrieving data from mindat api.
+
+#### Csv Normalization
+`csv_normalizer.py` for generateing normalized version of cleaned CSV file.

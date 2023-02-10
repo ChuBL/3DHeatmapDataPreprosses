@@ -75,8 +75,9 @@ class MindatDataProcessor:
 
     def _load_mindat_data(self):
         up_to_date = 0
+        mindat_rawdata_path = Path(self.data_file_path, 'raw_data')
         # iterate over the directory and return the file names
-        for filename in os.listdir(self.data_file_path):
+        for filename in os.listdir(mindat_rawdata_path):
             if "mindat_items_IMA" in filename:
                 data_date = int(re.findall(r'(?<=_)\d+(?=\.json)', filename)[0])
                 if data_date > up_to_date:
@@ -84,7 +85,7 @@ class MindatDataProcessor:
                     up_to_date_file = filename
                 #data_date = filename.split("_")[3]
 
-        mindat_path = self.data_file_path + up_to_date_file
+        mindat_path = Path(mindat_rawdata_path, up_to_date_file)
         with open(mindat_path, 'r', encoding='utf-8') as f:
             json_data = json.load(f)
         return json_data
