@@ -20,17 +20,17 @@ Under this directory we provided 8  generated datasets derived from OpenMindat I
 
 - `30_sigelements.csv` Elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **top 30 common elements** in Mindat attribute `sigelements`.
 
-- `normalized_30_elements.csv` Normalized elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **top 30 common elements** in Mindat attribute `elements`.
+- `normalized_30_elements.csv` *Normalized* elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **top 30 common elements** in Mindat attribute `elements`.
 
-- `normalized_30_sigelements.csv` Normalized elements normalized cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **top 30 common elements** in Mindat attribute `sigelements`.
+- `normalized_30_sigelements.csv` *Normalized* elements normalized cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **top 30 common elements** in Mindat attribute `sigelements`.
 
 - `all_elements.csv` Elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **all elements** in Mindat attribute `elements`.
 
 - `all_sigelements.csv` Elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **all elements** in Mindat attribute `sigelements`.
 
-- `normalized_all_elements.csv` Normalized elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **all elements** in Mindat attribute `elements`.
+- `normalized_all_elements.csv` *Normalized* elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **all elements** in Mindat attribute `elements`.
 
-- `normalized_all_sigelements.csv` Normalized elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **all elements** in Mindat attribute `sigelements`.
+- `normalized_all_sigelements.csv` *Normalized* elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **all elements** in Mindat attribute `sigelements`.
 
 ### Auxiliary code
 
