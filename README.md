@@ -16,14 +16,16 @@ The retrieved data are saved in `./mindat_data/raw_data`, in the name format of 
 The exported CSV files are saved in `./mindat_data/csv/`
 Under this directory we provided 8  generated datasets derived from OpenMindat IMA-approved mineral species.
 
+#### Subset 30 Common Elements Datasets
 - `30_elements.csv` Elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **top 30 common** elements in Mindat attribute `elements`.
 
 - `30_sigelements.csv` Elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **top 30 common elements** in Mindat attribute `sigelements`.
 
 - `normalized_30_elements.csv` *Normalized* elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **top 30 common elements** in Mindat attribute `elements`.
 
-- `normalized_30_sigelements.csv` *Normalized* elements normalized cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **top 30 common elements** in Mindat attribute `sigelements`.
+- `normalized_30_sigelements.csv` *Normalized* elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **top 30 common elements** in Mindat attribute `sigelements`.
 
+#### All Elements Datasets
 - `all_elements.csv` Elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **all elements** in Mindat attribute `elements`.
 
 - `all_sigelements.csv` Elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **all elements** in Mindat attribute `sigelements`.
