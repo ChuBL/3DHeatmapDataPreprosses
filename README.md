@@ -1,5 +1,5 @@
-# 3DHeatmapDataPreprosses
-This project is about retrieving mineral data from OpenMindat API, and cleansing the data into our designed data structure to the 3D Heatmap of mineral element coexistence.
+# 3D Heat Map Data Preprocess
+This project is about retrieving mineral data from OpenMindat API and cleansing the data into our designed data structure for the 3D heat map to analyze co-relationships between minerals and elements.
 
 ## Get Started
 ### Prerequisite 
