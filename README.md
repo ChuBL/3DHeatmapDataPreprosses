@@ -31,6 +31,7 @@ Under this directory we provided 8  generated datasets derived from OpenMindat I
 - `normalized_all_elements.csv` Normalized elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **all elements** in Mindat attribute `elements`.
 
 - `normalized_all_sigelements.csv` Normalized elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **all elements** in Mindat attribute `sigelements`.
+
 ### Auxiliary code
 
 #### Data retrieving
