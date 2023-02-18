@@ -4,12 +4,20 @@ from pathlib import Path
 import sys
 
 class CsvNormalizer:
+    # 72 list
+    # ALL_ELEMENT_LIST = ['H', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Na', 'Mg', 'Al', 'Si', 'P', 'S',\
+    #     'Cl', 'K', 'Ca', 'Sc', 'Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu', 'Zn', 'Ga', 'Ge',\
+    #         'As', 'Se', 'Br', 'Rb', 'Sr', 'Y', 'Zr', 'Nb', 'Mo', 'Ru', 'Rh', 'Pd', 'Ag', 'Cd',\
+    #             'In', 'Sn', 'Sb', 'Te', 'I', 'Cs', 'Ba', 'La', 'Ce', 'Nd', 'Sm', 'Gd', 'Dy', 'Er',\
+    #                 'Yb', 'Hf', 'Ta', 'W', 'Re', 'Os', 'Ir', 'Pt', 'Au', 'Hg', 'Tl', 'Pb', 'Bi', 'Th', 'U']
 
+    # 73 list
     ALL_ELEMENT_LIST = ['H', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Na', 'Mg', 'Al', 'Si', 'P', 'S',\
         'Cl', 'K', 'Ca', 'Sc', 'Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu', 'Zn', 'Ga', 'Ge',\
             'As', 'Se', 'Br', 'Rb', 'Sr', 'Y', 'Zr', 'Nb', 'Mo', 'Ru', 'Rh', 'Pd', 'Ag', 'Cd',\
-                'In', 'Sn', 'Sb', 'Te', 'I', 'Cs', 'Ba', 'La', 'Ce', 'Nd', 'Sm', 'Gd', 'Dy', 'Er',\
+                'In', 'Sn', 'Sb', 'Te', 'I', 'Cs', 'Ba', 'La', 'Ce', 'Pr', 'Nd', 'Sm', 'Gd', 'Dy', 'Er',\
                     'Yb', 'Hf', 'Ta', 'W', 'Re', 'Os', 'Ir', 'Pt', 'Au', 'Hg', 'Tl', 'Pb', 'Bi', 'Th', 'U']
+
     THIRTY_ELEMENT_LIST = ['H', 'B', 'C', 'O', 'F', 'Na', 'Mg', 'Al', 'Si', 'P', 'S', 'Cl', 'K', 'Ca', \
         'Ti', 'V', 'Mn', 'Fe', 'Ni', 'Cu', 'Zn', 'As', 'Se', 'Ag', 'Sb', 'Ba', 'Pb', 'Bi', 'U', 'REE']
 
@@ -22,9 +30,9 @@ class CsvNormalizer:
         return df
 
     def normalizing_df(self, DATAFRAME, ELE_COUNT):
-        if ('72' == str(ELE_COUNT)):
+        if (len(CsvNormalizer.ALL_ELEMENT_LIST) == int(ELE_COUNT)):
             target_element_list = CsvNormalizer.ALL_ELEMENT_LIST
-        elif ('30' == str(ELE_COUNT)):
+        elif (len(CsvNormalizer.THIRTY_ELEMENT_LIST) == int(ELE_COUNT)):
             target_element_list = CsvNormalizer.THIRTY_ELEMENT_LIST
         else:
             print("ELEMENT_COUNT error")

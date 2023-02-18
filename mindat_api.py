@@ -5,6 +5,7 @@ from pathlib import Path
 import re
 import pprint
 from datetime import datetime
+import os
 
 class MindatApi:
     def __init__(self, API_KEY_FILENAME):
@@ -151,10 +152,10 @@ class MindatApi:
         ima_path = Path(self.data_dir, 'raw_data')
         ima_path.mkdir(parents=True, exist_ok=True)
         date = self.get_datetime()
-        print("Retriving Mindat data for IMA approved minerals. This may take a while... ")
+        print("Retrieving Mindat data for IMA approved minerals. This may take a while... ")
         file_path = Path(ima_path, 'mindat_items_IMA_' + date + '.json')
         with open(file_path, 'w') as f:
-            PAGE_RANGE = 7
+            PAGE_RANGE = 100
             for page in range(1, PAGE_RANGE):
                 params = {
                     #'omit': omit_str,
@@ -173,10 +174,49 @@ class MindatApi:
                 if 1 == page:
                     json_all = json_file
                 else:
-                    json_all['results'] += json_file['results']
-
+                    try:
+                        json_all['results'] += json_file['results']
+                    except KeyError:
+                        break
+            # last_count = self.ima_last_count_check(ima_path)
+            # if last_count > len(json_all['results']):
+            #     print('IMA approved minerals retrieving failed. Exiting...')
+            #     return
             json.dump(json_all, f, indent=4)
-            print("Successfully saved " + str(len(json_all['results'])) + " entries to " + str(file_path) + '.json')
+        print("Successfully saved " + str(len(json_all['results'])) + " entries to " + str(file_path))
+
+    # def ima_last_count_check(self, IMA_PATH):
+    #     '''
+    #         check the last saved file for IMA approved minerals
+    #         and return the number of entries in the file
+    #     '''
+    #     last_file = ''
+    #     up_to_date = 0
+    #     up_to_date_file = ''
+    #     mindat_rawdata_path = IMA_PATH
+    #     # iterate over the directory and return the file names
+    #     if 0 == len(os.listdir(mindat_rawdata_path)):
+    #         return 0
+
+    #     for filename in os.listdir(mindat_rawdata_path):
+    #         if "mindat_items_IMA" in filename:
+    #             data_date = int(re.findall(r'(?<=_)\d+(?=\.json)', filename)[0])
+    #             if data_date > up_to_date:
+    #                 last_file = up_to_date_file
+    #                 up_to_date = data_date
+    #                 up_to_date_file = filename
+    #             #data_date = filename.split("_")[3]
+
+    #     last_path = Path(mindat_rawdata_path, last_file)
+    #     last_entry_count = 0
+    #     try:
+    #         with open(last_path, 'r') as f:
+    #             jsondata = json.load(f)
+    #             up_to_date_entry_count = len(jsondata['results'])
+    #             print(up_to_date_entry_count)
+    #         return int(up_to_date_entry_count)
+    #     except:
+    #         return 0
 
     def download_localities(self):
         pass

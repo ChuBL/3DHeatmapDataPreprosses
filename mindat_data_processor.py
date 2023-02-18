@@ -10,11 +10,20 @@ from mindat_api import MindatApi
 import copy
 
 class MindatDataProcessor:
+    # 72 list
+    # ALL_ELEMENT_LIST = ['H', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Na', 'Mg', 'Al', 'Si', 'P', 'S',\
+    #     'Cl', 'K', 'Ca', 'Sc', 'Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu', 'Zn', 'Ga', 'Ge',\
+    #         'As', 'Se', 'Br', 'Rb', 'Sr', 'Y', 'Zr', 'Nb', 'Mo', 'Ru', 'Rh', 'Pd', 'Ag', 'Cd',\
+    #             'In', 'Sn', 'Sb', 'Te', 'I', 'Cs', 'Ba', 'La', 'Ce', 'Nd', 'Sm', 'Gd', 'Dy', 'Er',\
+    #                 'Yb', 'Hf', 'Ta', 'W', 'Re', 'Os', 'Ir', 'Pt', 'Au', 'Hg', 'Tl', 'Pb', 'Bi', 'Th', 'U']
+
+    # 73 list
     ALL_ELEMENT_LIST = ['H', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Na', 'Mg', 'Al', 'Si', 'P', 'S',\
         'Cl', 'K', 'Ca', 'Sc', 'Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu', 'Zn', 'Ga', 'Ge',\
             'As', 'Se', 'Br', 'Rb', 'Sr', 'Y', 'Zr', 'Nb', 'Mo', 'Ru', 'Rh', 'Pd', 'Ag', 'Cd',\
-                'In', 'Sn', 'Sb', 'Te', 'I', 'Cs', 'Ba', 'La', 'Ce', 'Nd', 'Sm', 'Gd', 'Dy', 'Er',\
+                'In', 'Sn', 'Sb', 'Te', 'I', 'Cs', 'Ba', 'La', 'Ce', 'Pr', 'Nd', 'Sm', 'Gd', 'Dy', 'Er',\
                     'Yb', 'Hf', 'Ta', 'W', 'Re', 'Os', 'Ir', 'Pt', 'Au', 'Hg', 'Tl', 'Pb', 'Bi', 'Th', 'U']
+
     THIRTY_ELEMENT_LIST = ['H', 'B', 'C', 'O', 'F', 'Na', 'Mg', 'Al', 'Si', 'P', 'S', 'Cl', 'K', 'Ca', \
         'Ti', 'V', 'Mn', 'Fe', 'Ni', 'Cu', 'Zn', 'As', 'Se', 'Ag', 'Sb', 'Ba', 'Pb', 'Bi', 'U', 'REE']
     REE_LIST = ['Sc', 'Y', 'La', 'Ce', 'Pr', 'Nd', 'Pm', 'Sm', 'Eu', 'Gd', 'Tb', 'Dy', 'Ho', 'Er', 'Tm', 'Yb', 'Lu']
@@ -53,12 +62,12 @@ class MindatDataProcessor:
     def prepare_data(self):
         self.mindat_json = self._load_mindat_data()
         for element in self.all_element_list:
-            self.prep_element_json(element, 'elements', 72)
-            self.prep_element_json(element, 'sigelements', 72)
+            self.prep_element_json(element, 'elements', len(self.all_element_list))
+            self.prep_element_json(element, 'sigelements', len(self.all_element_list))
         
         for element in self.thirty_element_list:
-            self.prep_element_json(element, 'elements', 30)
-            self.prep_element_json(element, 'sigelements', 30)
+            self.prep_element_json(element, 'elements', len(self.thirty_element_list))
+            self.prep_element_json(element, 'sigelements', len(self.thirty_element_list))
 
     def export_csv(self):
         self.batch_convert_json_to_csv(self.thirty_element_list, 'sigelements')
@@ -93,9 +102,9 @@ class MindatDataProcessor:
 
     def prep_element_json(self, ELEMENT_NAME, ELEMENT_ATTRIBUTE, ELEMENT_COUNT):
         # ELEMENT_NAME is selected from self.30elements, including REE
-        if ('72' == str(ELEMENT_COUNT)):
+        if (len(self.all_element_list) == int(ELEMENT_COUNT)):
             df = self.initialize_df(self.all_element_list)
-        elif ('30' == str(ELEMENT_COUNT)):
+        elif (len(self.thirty_element_list) == int(ELEMENT_COUNT)):
             df = self.initialize_df(self.thirty_element_list)
         else:
             print("ELEMENT_COUNT error")
@@ -103,7 +112,7 @@ class MindatDataProcessor:
 
         for item in self.mindat_json["results"]:
             element_attribute_list = self.get_item_element_attributes(item, ELEMENT_ATTRIBUTE)
-            if ('30' == str(ELEMENT_COUNT)):
+            if (len(self.thirty_element_list) == int(ELEMENT_COUNT)):
                 element_attribute_list = self.convert_to_list_with_ree(element_attribute_list)
             if ELEMENT_NAME in element_attribute_list:
                 df = self.load_list_to_frame(element_attribute_list, df, ELEMENT_COUNT)
@@ -116,9 +125,9 @@ class MindatDataProcessor:
 
 
     def load_list_to_frame(self, CONVERTED_LIST, DATAFRAME, ELEMENT_COUNT):
-        if ('72' == str(ELEMENT_COUNT)):
+        if (len(self.all_element_list) == int(ELEMENT_COUNT)):
             target_element_list = self.all_element_list
-        elif ('30' == str(ELEMENT_COUNT)):
+        elif (len(self.thirty_element_list) == int(ELEMENT_COUNT)):
             target_element_list = self.thirty_element_list
         else:
             print("ELEMENT_COUNT error")
@@ -190,9 +199,9 @@ class MindatDataProcessor:
 
     def insert_yaxis(self, dataframe):
         element_count = len(dataframe.columns)
-        if (72 == element_count):
+        if (len(self.all_element_list) == int(element_count)):
             target_element_list = self.all_element_list
-        elif (30 == element_count):
+        elif (len(self.thirty_element_list) == int(element_count)):
             target_element_list = self.thirty_element_list
         else:
             print("ELEMENT_COUNT error")
@@ -209,9 +218,9 @@ class MindatDataProcessor:
 
     def convert_json_to_df(self, ELEMENT_NAME, JSON_PATH):
         element_count = str(re.findall(r'(?<=\/)\d+(?=\/)', str(JSON_PATH))[0])
-        if ('72' == element_count):
+        if (len(self.all_element_list) == int(element_count)):
             target_element_list = self.all_element_list
-        elif ('30' == element_count):
+        elif (len(self.thirty_element_list) == int(element_count)):
             target_element_list = self.thirty_element_list
         else:
             print("ELEMENT_COUNT error")
@@ -265,5 +274,12 @@ if __name__ == "__main__":
    
     mdp = MindatDataProcessor()
     mdp.run_data_preprocess()
+
+
+    #mdp.update_mindat_data()
+    
+
     # mdp.prepare_data()
-    # mdp.export_csv()
+    #mdp.export_csv()
+        
+    #mdp.get_normalized_csv()
