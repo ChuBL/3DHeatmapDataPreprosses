@@ -11,28 +11,30 @@ The whole data stream is wrapped in `mindat_data_processor.py`. You can walk thr
 ## File structures
 
 ### Data Description
-The retrieved data are saved in `./mindat_data/raw_data`, in the name format of `mindat_items_IMA_00000000000000.json`.
+The retrieved data are saved in `./mindat_data/raw_data`, in the naming format of `mindat_items_IMA_00000000000000.json`.
 
 The exported CSV files are saved in `./mindat_data/csv/`
 Under this directory we provided 8  generated datasets derived from OpenMindat IMA-approved mineral species.
 
 #### Subset 30 Common Elements Datasets
-- `30_elements.csv` Elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **top 30 common** elements in Mindat attribute `elements`.
 
-- `30_sigelements.csv` Elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **top 30 common elements** in Mindat attribute `sigelements`.
+- `30_elements.csv` Elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **30 top frequency** elements in Mindat attribute `elements`.
 
-- `normalized_30_elements.csv` *Normalized* elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **top 30 common elements** in Mindat attribute `elements`.
+- `30_sigelements.csv` Elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **30 top frequency elements** in Mindat attribute `sigelements`.
 
-- `normalized_30_sigelements.csv` *Normalized* elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **top 30 common elements** in Mindat attribute `sigelements`.
+- `normalized_30_elements.csv` *Normalized* elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **30 top frequency elements** in Mindat attribute `elements`.
+
+- `normalized_30_sigelements.csv` *Normalized* elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **30 top frequency elements** in Mindat attribute `sigelements`.
 
 #### All Elements Datasets
-- `all_elements.csv` Elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **all elements** in Mindat attribute `elements`.
 
-- `all_sigelements.csv` Elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **all elements** in Mindat attribute `sigelements`.
+- `73_elements.csv` Elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **all elements** in Mindat attribute `elements`.
 
-- `normalized_all_elements.csv` *Normalized* elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **all elements** in Mindat attribute `elements`.
+- `73_sigelements.csv` Elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **all elements** in Mindat attribute `sigelements`.
 
-- `normalized_all_sigelements.csv` *Normalized* elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **all elements** in Mindat attribute `sigelements`.
+- `normalized_73_elements.csv` *Normalized* elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **all elements** in Mindat attribute `elements`.
+
+- `normalized_73_sigelements.csv` *Normalized* elements cooccurrence 3D matrix, comprises of as a concatenated 2D matrices of **all elements** in Mindat attribute `sigelements`.
 
 ### Auxiliary code
 
