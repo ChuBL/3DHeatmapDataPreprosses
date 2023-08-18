@@ -146,44 +146,47 @@ class MindatApi:
             Since this API has a limit of 1000 items per page,
             we need to loop through all pages and save them to a single json file
         '''
-        omit_str = '''updttime,varietyof,synid,polytypeof,groupid,
-            entrytype,entrytype_text,description_short,impurities
-            '''
+        # omit_str = '''updttime,varietyof,synid,polytypeof,groupid,
+        #     entrytype,entrytype_text,description_short,impurities
+        #     '''
         ima_path = Path(self.data_dir, 'raw_data')
         ima_path.mkdir(parents=True, exist_ok=True)
         date = self.get_datetime()
         print("Retrieving Mindat data for IMA approved minerals. This may take a while... ")
         file_path = Path(ima_path, 'mindat_items_IMA_' + date + '.json')
         with open(file_path, 'w') as f:
-            PAGE_RANGE = 100
-            for page in range(1, PAGE_RANGE):
-                params = {
-                    #'omit': omit_str,
-                    #'fields': "id,name,elements",
-                    'ima': 1,          # show only minerals approved by ima
-                    'page_size': '20000',
-                    'page': str(page),
-                    'format': 'json'
-                }
 
-                response = requests.get(self.MINDAT_API_URL+"/items/",
-                                params=params,
-                                headers=self._headers)
+            params = {
+                #'omit': omit_str,
+                #'fields': "id,name,elements",
+                "ima_status": [
+                        "APPROVED"
+                    ],
+                'format': 'json'
+            }
 
-                json_file = response.json()
-                if 1 == page:
-                    json_all = json_file
-                else:
-                    try:
-                        json_all['results'] += json_file['results']
-                    except KeyError:
-                        break
+            response = requests.get(self.MINDAT_API_URL+"/geomaterials/",
+                            params=params,
+                            headers=self._headers)
+
+            result_data = response.json()["results"]
+            json_data = {"results": result_data}
+
+            while True:
+                try:
+                    next_url = response.json()["next"]
+                    response = requests.get(next_url, headers=self._headers)
+                    json_data["results"] += response.json()['results']
+
+                except requests.exceptions.MissingSchema as e:
+                    # This error indicates the `next_url` is none
+                    break
             # last_count = self.ima_last_count_check(ima_path)
             # if last_count > len(json_all['results']):
             #     print('IMA approved minerals retrieving failed. Exiting...')
             #     return
-            json.dump(json_all, f, indent=4)
-        print("Successfully saved " + str(len(json_all['results'])) + " entries to " + str(file_path))
+            json.dump(json_data, f, indent=4)
+        print("Successfully saved " + str(len(json_data['results'])) + " entries to " + str(file_path))
 
     # def ima_last_count_check(self, IMA_PATH):
     #     '''
