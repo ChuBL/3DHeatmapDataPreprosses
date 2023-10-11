@@ -3,7 +3,7 @@ This project is about retrieving mineral data from OpenMindat API and cleansing 
 
 ## Get Started
 ### Prerequisite 
-You will need an **API key** text file in the root path of your cloned repository to run the codes. The **API key** will not be included in this repository. Please reach out to Mindat administrators for help.
+You will need an `api_key.txt` file in the root path of your cloned repository to run the codes. The **API key** will not be included in this repository. Please reach out to Mindat administrators for help.
 
 ### Run the code
 The whole data stream is wrapped in `mindat_data_processor.py`. You can walk through all the steps from data retrieving to data export by running this single `.py` file.
