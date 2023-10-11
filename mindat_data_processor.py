@@ -56,7 +56,11 @@ class MindatDataProcessor:
         self.get_normalized_csv()
 
     def update_mindat_data(self):
-        mindat_api = MindatApi('api_key.txt')
+        try:
+            mindat_api = MindatApi('api_key.txt')
+        except FileNotFoundError:
+            print("API key file not found. Please create a file containing api key named 'api_key.txt' and place it in the same directory as this script.")
+            sys.exit()
         mindat_api.get_ima_items()
     
     def prepare_data(self):
@@ -176,7 +180,7 @@ class MindatDataProcessor:
 
 
     def get_item_element_attributes(self, item, ELEMENT_KEY):
-        ele_attr_list = item[ELEMENT_KEY].split("-")
+        ele_attr_list = item[ELEMENT_KEY]#.split("-")
         ele_attr_list = [e for e in ele_attr_list if e in self.all_element_list]
         ele_attr_list = sorted(ele_attr_list, key=lambda x: self.all_element_list.index(x))
         return ele_attr_list

@@ -13,9 +13,21 @@ class MindatApi:
         self.MINDAT_API_URL = "https://api.mindat.org"
         self._headers = {'Authorization': 'Token '+ self._api_key}
         self.params = {'format': 'json'}
-        self.endpoint = "/items/"
+        self.endpoint = "/geomaterials/"
         self.data_dir = './mindat_data/'
+        self.test_api_key()
+
         Path(self.data_dir).mkdir(parents=True, exist_ok=True)
+
+    def test_api_key(self):
+        response = requests.get(self.MINDAT_API_URL+"/geomaterials/",
+                                params=self.params,
+                                headers=self._headers)
+        if response.status_code == 200:
+            pass
+        else:
+            print("API key is invalid. Please check your key in api_ket.text and try again. ")
+            sys.exit()
 
     def set_params(self, PARAMS_DICT):
         self.params = PARAMS_DICT
@@ -162,6 +174,7 @@ class MindatApi:
                 "ima_status": [
                         "APPROVED"
                     ],
+                'page_size': '1000',
                 'format': 'json'
             }
 
