@@ -1,6 +1,8 @@
 # 3D Heat Map Data Preprocess
 This project is about retrieving mineral data from OpenMindat API and cleansing the data into our designed data structure for the 3D heat map to analyze co-relationships between minerals and elements.
 
+For users interested in using Mindat API, please refer to https://github.com/ChuBL/How-to-Use-Mindat-API.
+
 ## Get Started
 ### Prerequisite 
 You will need an `api_key.txt` file in the root path of your cloned repository to run the codes. The **API key** will not be included in this repository. Please reach out to Mindat administrators for help.
