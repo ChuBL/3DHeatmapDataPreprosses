@@ -1,11 +1,11 @@
-import requests
 import sys
-import json
+from datetime import datetime
 from pathlib import Path
 import re
+import json
 import pprint
-from datetime import datetime
-import os
+import requests
+
 
 class MindatApi:
     def __init__(self, API_KEY_FILENAME):
