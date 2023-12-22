@@ -278,12 +278,3 @@ if __name__ == "__main__":
    
     mdp = MindatDataProcessor()
     mdp.run_data_preprocess()
-
-
-    #mdp.update_mindat_data()
-    
-
-    # mdp.prepare_data()
-    #mdp.export_csv()
-        
-    #mdp.get_normalized_csv()

@@ -194,45 +194,11 @@ class MindatApi:
                 except requests.exceptions.MissingSchema as e:
                     # This error indicates the `next_url` is none
                     break
-            # last_count = self.ima_last_count_check(ima_path)
-            # if last_count > len(json_all['results']):
-            #     print('IMA approved minerals retrieving failed. Exiting...')
-            #     return
+           
             json.dump(json_data, f, indent=4)
         print("Successfully saved " + str(len(json_data['results'])) + " entries to " + str(file_path))
 
-    # def ima_last_count_check(self, IMA_PATH):
-    #     '''
-    #         check the last saved file for IMA approved minerals
-    #         and return the number of entries in the file
-    #     '''
-    #     last_file = ''
-    #     up_to_date = 0
-    #     up_to_date_file = ''
-    #     mindat_rawdata_path = IMA_PATH
-    #     # iterate over the directory and return the file names
-    #     if 0 == len(os.listdir(mindat_rawdata_path)):
-    #         return 0
-
-    #     for filename in os.listdir(mindat_rawdata_path):
-    #         if "mindat_items_IMA" in filename:
-    #             data_date = int(re.findall(r'(?<=_)\d+(?=\.json)', filename)[0])
-    #             if data_date > up_to_date:
-    #                 last_file = up_to_date_file
-    #                 up_to_date = data_date
-    #                 up_to_date_file = filename
-    #             #data_date = filename.split("_")[3]
-
-    #     last_path = Path(mindat_rawdata_path, last_file)
-    #     last_entry_count = 0
-    #     try:
-    #         with open(last_path, 'r') as f:
-    #             jsondata = json.load(f)
-    #             up_to_date_entry_count = len(jsondata['results'])
-    #             print(up_to_date_entry_count)
-    #         return int(up_to_date_entry_count)
-    #     except:
-    #         return 0
+   
 
     def download_localities(self):
         pass
